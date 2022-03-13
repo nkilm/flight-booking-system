@@ -104,8 +104,18 @@ def check_flights(src,dest,date,adults):
         originLocationCode=src.upper(),
         destinationLocationCode=dest.upper(),
         departureDate=date,
-        adults=adults)
-        return response.data
+        adults=adults).data
+       
+        for i in response:
+            id = i.get("id")
+            seats = i.get("numberOfBookableSeats")
+            duration = i.get("itineraries")[0]["duration"]
+            print(f"id: {id} Seats: {seats} duration: {duration}")
+            for j in i.get("itineraries")[0]["segments"]:
+              print("Departure: ",j["departure"]["iataCode"],j["departure"]["at"])
+              print("Arrival: ",j["arrival"]["iataCode"],j["arrival"]["at"])
+            print()
+        
     except ResponseError as error:
         return error
 
@@ -127,7 +137,8 @@ def book_flight(flight_obj):
 
 if __name__=="__main__":
     # print(check_flights("blr","goi","2022-03-21",1))
-    print(confirm_price(flight_info))
+    check_flights("blr","goi","2022-03-21",1)
+    # print(confirm_price(flight_info))
 
 
 
