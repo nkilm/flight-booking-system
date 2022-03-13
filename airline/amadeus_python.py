@@ -1,6 +1,6 @@
 from amadeus import Client, ResponseError
 from dotenv import load_dotenv
-from os import environ
+from os import environ, sep
 
 load_dotenv()
 
@@ -98,6 +98,19 @@ flight_info = {
       ]
     }
 
+def display(res):
+  print("ID\tAvailable_Seats\t\t\tDuration\tDeparture\tArrival")
+  for i in res:
+    id = i.get("id")
+    seats = i.get("numberOfBookableSeats")
+    duration = i.get("itineraries")[0]["duration"]
+    print(f"{id}\t\t{seats}\t{duration}\t",end="")
+    for j in i.get("itineraries")[0]["segments"]:
+      print(j["departure"]["iataCode"],j["departure"]["at"],end="")
+      print(j["arrival"]["iataCode"],j["arrival"]["at"])
+      print()
+  
+
 def check_flights(src,dest,date,adults):
     try:
         response = amadeus.shopping.flight_offers_search.get(
@@ -105,16 +118,7 @@ def check_flights(src,dest,date,adults):
         destinationLocationCode=dest.upper(),
         departureDate=date,
         adults=adults).data
-       
-        for i in response:
-            id = i.get("id")
-            seats = i.get("numberOfBookableSeats")
-            duration = i.get("itineraries")[0]["duration"]
-            print(f"id: {id} Seats: {seats} duration: {duration}")
-            for j in i.get("itineraries")[0]["segments"]:
-              print("Departure: ",j["departure"]["iataCode"],j["departure"]["at"])
-              print("Arrival: ",j["arrival"]["iataCode"],j["arrival"]["at"])
-            print()
+        return response
         
     except ResponseError as error:
         return error
@@ -137,7 +141,8 @@ def book_flight(flight_obj):
 
 if __name__=="__main__":
     # print(check_flights("blr","goi","2022-03-21",1))
-    check_flights("blr","goi","2022-03-21",1)
+    results = check_flights("blr","goi","2022-03-21",1)
+    display(results)
     # print(confirm_price(flight_info))
 
 
