@@ -13,23 +13,10 @@ amadeus = Client(
 )
 
 def display(res):
+  if(len(res)==0):
+    print(chalk.bold.red("No Flights Available"))
+    return
   table = Texttable(max_width=0)
-  flight_id = chalk.green('ID')
-  seats = chalk.green('Seats')
-  duration = chalk.green('Duration')
-  oneway = chalk.green('OneWay?')
-  dep = chalk.green('Departure')
-  arr = chalk.green('Arrival')
-  price = chalk.green('Price(inc. of Taxes)')
-  # table.add_row([
-  #   flight_id,
-  #   seats,
-  #   duration,
-  #   oneway,
-  #   dep,
-  #   arr,
-  #   price
-  #   ])
   table.add_row([
     'ID',
     'Seats',
@@ -37,8 +24,10 @@ def display(res):
     'Oneway?',
     'Departure',
     'Arrival',
-    'Price(inc. of Taxes)'
+    'Price(inc. of Taxes)',
+    'Last Ticketing Date'
     ])
+  table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
   curr = CurrencyConverter()
   
   for i in res: 
@@ -84,13 +73,3 @@ def book_flight(flight_obj):
 
     # Delete the order based on it's ID
     amadeus.booking.flight_order(flight_booking['id']).delete()
-
-if __name__=="__main__":
-    # print(check_flights("blr","goi","2022-03-21",1))
-    results = check_flights("blr","goi","2022-03-21",1)
-    display(results)
-    # print(confirm_price(flight_info))
-
-
-
-    
