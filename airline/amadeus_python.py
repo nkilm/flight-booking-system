@@ -1,6 +1,7 @@
 from amadeus import Client, ResponseError
 from dotenv import load_dotenv
-from os import environ, sep
+from os import environ
+from prettytable import PrettyTable
 
 load_dotenv()
 
@@ -9,106 +10,19 @@ amadeus = Client(
     client_secret=environ.get("API_SECRET")
 )
 
-flight_info = {
-      "type": "flight-offer",
-      "id": "1",
-      "source": "GDS",
-      "instantTicketingRequired": False,
-      "nonHomogeneous": False,
-      "oneWay": False,
-      "lastTicketingDate": "2022-03-21",
-      "numberOfBookableSeats": 9,
-      "itineraries": [
-        {
-          "duration": "PT1H30M",
-          "segments": [
-            {
-              "departure": {
-                "iataCode": "BLR",
-                "at": "2022-03-21T19:00:00"
-              },
-              "arrival": {
-                "iataCode": "GOI",
-                "at": "2022-03-21T20:30:00"
-              },
-              "carrierCode": "AI",
-              "number": "9547",
-              "aircraft": {
-                "code": "ATR"
-              },
-              "operating": {
-                "carrierCode": "9I"
-              },
-              "duration": "PT1H30M",
-              "id": "27",
-              "numberOfStops": 0,
-              "blacklistedInEU": False
-            }
-          ]
-        }
-      ],
-      "price": {
-        "currency": "EUR",
-        "total": "29.55",
-        "base": "20.00",
-        "fees": [
-          {
-            "amount": "0.00",
-            "type": "SUPPLIER"
-          },
-          {
-            "amount": "0.00",
-            "type": "TICKETING"
-          }
-        ],
-        "grandTotal": "29.55"
-      },
-      "pricingOptions": {
-        "fareType": [
-          "PUBLISHED"
-        ],
-        "includedCheckedBagsOnly": True
-      },
-      "validatingAirlineCodes": [
-        "AI"
-      ],
-      "travelerPricings": [
-        {
-          "travelerId": "1",
-          "fareOption": "STANDARD",
-          "travelerType": "ADULT",
-          "price": {
-            "currency": "EUR",
-            "total": "29.55",
-            "base": "20.00"
-          },
-          "fareDetailsBySegment": [
-            {
-              "segmentId": "27",
-              "cabin": "ECONOMY",
-              "fareBasis": "SIP9I",
-              "class": "S",
-              "includedCheckedBags": {
-                "weight": 15,
-                "weightUnit": "KG"
-              }
-            }
-          ]
-        }
-      ]
-    }
-
 def display(res):
-  print("ID\tAvailable_Seats\t\t\tDuration\tDeparture\tArrival")
-  for i in res:
+  t = PrettyTable(['ID', 'Seats','Duration'])
+
+  for i in res: 
     id = i.get("id")
     seats = i.get("numberOfBookableSeats")
     duration = i.get("itineraries")[0]["duration"]
-    print(f"{id}\t\t{seats}\t{duration}\t",end="")
-    for j in i.get("itineraries")[0]["segments"]:
-      print(j["departure"]["iataCode"],j["departure"]["at"],end="")
-      print(j["arrival"]["iataCode"],j["arrival"]["at"])
-      print()
+    t.add_row([id,seats,duration])
+    # for j in i.get("itineraries")[0]["segments"]:
+      # print(j["departure"]["iataCode"],j["departure"]["at"],end="")
+      # print(j["arrival"]["iataCode"],j["arrival"]["at"])
+      # print()
+  print(t)
   
 
 def check_flights(src,dest,date,adults):
