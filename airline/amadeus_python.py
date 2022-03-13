@@ -1,7 +1,7 @@
 from amadeus import Client, ResponseError
 from dotenv import load_dotenv
 from os import environ
-from prettytable import PrettyTable
+from texttable import Texttable
 
 load_dotenv()
 
@@ -11,19 +11,21 @@ amadeus = Client(
 )
 
 def display(res):
-  t = PrettyTable(['ID', 'Seats','Duration'])
-
+  t = Texttable(max_width=0)
+  t.add_row(['ID', 'Seats','Duration','OneWay?','Departure','Arrival','Price(inc. of Taxes)'])
   for i in res: 
     id = i.get("id")
     seats = i.get("numberOfBookableSeats")
     duration = i.get("itineraries")[0]["duration"]
-    t.add_row([id,seats,duration])
-    # for j in i.get("itineraries")[0]["segments"]:
-      # print(j["departure"]["iataCode"],j["departure"]["at"],end="")
-      # print(j["arrival"]["iataCode"],j["arrival"]["at"])
-      # print()
-  print(t)
-  
+    price = i.get("price").get("grandTotal")
+    oneway = i.get("oneWay")
+    departure = ""
+    arrival = ""
+    for j in i.get("itineraries")[0]["segments"]:
+      departure += j["departure"]["iataCode"] + " " + j["departure"]["at"] + "\n"
+      arrival += j["arrival"]["iataCode"] + " " + j["arrival"]["at"] + "\n"
+    t.add_row([id,seats,duration,oneway,departure,arrival,price])
+  print(t.draw())
 
 def check_flights(src,dest,date,adults):
     try:
