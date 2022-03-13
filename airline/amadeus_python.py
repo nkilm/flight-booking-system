@@ -13,9 +13,9 @@ amadeus = Client(
 )
 
 def display(res):
-  if(len(res)==0):
-    print(chalk.bold.red("No Flights Available"))
-    return
+  # if(len(res)==0):
+  #   print(chalk.bold.red("No Flights Available"))
+  #   return
   table = Texttable(max_width=0)
   table.add_row([
     'ID',
@@ -27,7 +27,7 @@ def display(res):
     'Price(inc. of Taxes)',
     'Last Ticketing Date'
     ])
-  table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
+  # table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
   curr = CurrencyConverter()
   
   for i in res: 
@@ -50,7 +50,7 @@ def display(res):
 
   print(table.draw())
 
-def check_flights(src,dest,date,adults):
+def check_flights(src,dest,date,adults=1):
     try:
         response = amadeus.shopping.flight_offers_search.get(
         originLocationCode=src.upper(),

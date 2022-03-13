@@ -1,11 +1,15 @@
 import inquirer
-import re
 from socket import socket 
 from subprocess import run
 from simple_chalk import chalk
 from inquirer.themes import GreenPassion
 from datetime import datetime
 import validation
+from json import dumps
+import os,sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
+from airline.amadeus_python import display
 
 c_socket = socket()
 
@@ -20,7 +24,6 @@ run('clear',shell=True)
 print(welcome_response)
 print(quote_response)
 
-
 questions = [
     inquirer.Text("src", message="Enter the Source"),
     inquirer.Text("dest", message="Enter the Destination"),
@@ -32,4 +35,5 @@ booking_info = inquirer.prompt(questions, theme=GreenPassion())
 
 booking_info["date"] = datetime.strptime(booking_info.get("date"), "%d/%m/%Y").strftime("%Y/%m/%d")
 
-c_socket.send(bytes(str(booking_info),'utf-8'))
+# send the booking info the socket of the server 
+c_socket.send(bytes(str(dumps(booking_info)),'utf-8'))
