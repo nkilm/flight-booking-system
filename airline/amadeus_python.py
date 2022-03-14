@@ -63,7 +63,14 @@ def check_flights(src,dest,date,adults=1):
         return error
 
 def confirm_price(flight_obj):
-    return amadeus.shopping.flight_offers.pricing.post(flight_obj,include='credit-card-fees,other-services').data
+	valid_flight_obj = {
+		"data" : {
+			"type": "flight-offers-pricing"
+		}
+	}
+	# "flightOffers" should be list
+	valid_flight_obj["data"]["flightOffers"] = [].append(flight_obj)
+	return amadeus.shopping.flight_offers.pricing.post(valid_flight_obj,include='credit-card-fees,other-services').data
 
 def book_flight(flight_obj):
     # The flight ID comes from the Flight Create Orders (in test environment it's temporary)

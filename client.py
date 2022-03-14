@@ -40,3 +40,15 @@ c_socket.send(bytes(str(dumps(booking_info)),'utf-8'))
 
 flights = loads(c_socket.recv(int(5e+6)).decode())
 display(flights)
+
+print("\n")
+id = [
+    inquirer.Text("id",message="Enter the corresponding ID of the Flight you want to book")
+]
+
+flight_id = inquirer.prompt(id,theme=GreenPassion())
+
+# send flight id to server
+c_socket.send(bytes(str(flight_id["id"]),'utf-8'))
+
+desired_flight = loads(c_socket.recv(int(2e+6)).decode())

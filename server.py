@@ -3,7 +3,7 @@ from pyfiglet import figlet_format
 from simple_chalk import chalk 
 import os,sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
-from airline.amadeus_python import check_flights,display
+from airline.amadeus_python import check_flights,confirm_price
 from json import loads,dumps
 
 PORT = 7070
@@ -37,8 +37,16 @@ while True:
     adults = booking_info_client.get("adults")
 
     res = check_flights(src,dest,date,adults)
-    
 
     c_socket.send(bytes(str(dumps(res)),"utf-8"))
+
+    id = c_socket.recv(1024).decode()
+
+    desired_flight = list(filter(lambda flight:flight["id"]=="5",res))
+
+    print("desired Flight\n",desired_flight)
+
+    price_conf_res = confirm_price(desired_flight)
+    c_socket.send(bytes(str(dumps(price_conf_res)),"utf-8"))
 
     c_socket.close()
