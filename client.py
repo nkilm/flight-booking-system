@@ -33,7 +33,7 @@ questions = [
 
 booking_info = inquirer.prompt(questions, theme=GreenPassion())
 
-booking_info["date"] = datetime.strptime(booking_info.get("date"), "%d/%m/%Y").strftime("%Y/%m/%d")
+booking_info["date"] = datetime.strptime(booking_info.get("date"), "%d/%m/%Y").strftime("%Y-%m-%d")
 
 # send the booking info the socket of the server 
 c_socket.send(bytes(str(dumps(booking_info)),'utf-8'))

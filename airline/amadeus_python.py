@@ -34,7 +34,7 @@ def display(res):
     id = i.get("id")
     seats = i.get("numberOfBookableSeats")
     duration = i.get("itineraries")[0]["duration"]
-
+    last_ticketing_date = i.get("lastTicketingDate")
     price = i.get("price").get("grandTotal")
     price_inr = chalk.green(f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}")
 
@@ -46,7 +46,7 @@ def display(res):
     for j in i.get("itineraries")[0]["segments"]:
       departure += j["departure"]["iataCode"] + " " + " ".join(j["departure"]["at"].split("T")) + "\n"
       arrival += j["arrival"]["iataCode"] + " " + " ".join(j["arrival"]["at"].split("T")) + "\n"
-    table.add_row([id,seats,duration,oneway,departure,arrival,price_inr])
+    table.add_row([id,seats,duration,oneway,departure,arrival,price_inr,last_ticketing_date])
 
   print(table.draw())
 
