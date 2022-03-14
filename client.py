@@ -9,7 +9,7 @@ from json import dumps,loads
 import os,sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
-from airline.amadeus_python import display
+from airline.amadeus_python import display,display_confirmation_price
 
 c_socket = socket()
 
@@ -52,3 +52,5 @@ flight_id = inquirer.prompt(id,theme=GreenPassion())
 c_socket.send(bytes(str(flight_id["id"]),'utf-8'))
 
 desired_flight = loads(c_socket.recv(int(2e+6)).decode())
+
+display_confirmation_price(desired_flight)

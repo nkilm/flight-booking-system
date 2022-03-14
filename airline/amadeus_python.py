@@ -12,6 +12,7 @@ amadeus = Client(
     client_secret=environ.get("API_SECRET")
 )
 
+
 def display(res):
   # if(len(res)==0):
   #   print(chalk.bold.red("No Flights Available"))
@@ -29,8 +30,8 @@ def display(res):
     ])
   # table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
   curr = CurrencyConverter()
-  
-  for i in res: 
+
+  for i in res:
     id = i.get("id")
     seats = i.get("numberOfBookableSeats")
     duration = i.get("itineraries")[0]["duration"]
@@ -38,19 +39,23 @@ def display(res):
     price = i.get("price").get("grandTotal")
     price_inr = chalk.green(f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}")
 
-    oneway = "No" if i.get("oneWay")==0 else "Yes"
+    oneway = "No" if i.get("oneWay") == 0 else "Yes"
 
     departure = ""
     arrival = ""
-    
+
     for j in i.get("itineraries")[0]["segments"]:
-      departure += j["departure"]["iataCode"] + " " + " ".join(j["departure"]["at"].split("T")) + "\n"
-      arrival += j["arrival"]["iataCode"] + " " + " ".join(j["arrival"]["at"].split("T")) + "\n"
-    table.add_row([id,seats,duration,oneway,departure,arrival,price_inr,last_ticketing_date])
+      departure += j["departure"]["iataCode"] + " " + \
+          " ".join(j["departure"]["at"].split("T")) + "\n"
+      arrival += j["arrival"]["iataCode"] + " " + \
+          " ".join(j["arrival"]["at"].split("T")) + "\n"
+    table.add_row([id, seats, duration, oneway, departure,
+                  arrival, price_inr, last_ticketing_date])
 
   print(table.draw())
 
-def check_flights(src,dest,date,adults=1):
+
+def check_flights(src, dest, date, adults=1):
     try:
         response = amadeus.shopping.flight_offers_search.get(
         originLocationCode=src.upper(),
@@ -58,9 +63,32 @@ def check_flights(src,dest,date,adults=1):
         departureDate=date,
         adults=adults).data
         return response
-        
+
     except ResponseError as error:
         return error
+
+
+def display_confirmation_price(conf_price_res):
+    table = Texttable(max_width=0)
+    curr = CurrencyConverter()
+    for i in conf_price_res:
+      id = i.get("id")
+      seats = i.get("numberOfBookableSeats")
+      duration = i.get("itineraries")[0]["duration"]
+      last_ticketing_date = i.get("lastTicketingDate")
+      price = i.get("price").get("grandTotal")
+      price_inr = chalk.green(f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}")
+
+      oneway = "No" if i.get("oneWay")==0 else "Yes"
+
+      departure = ""
+      arrival = ""
+      
+      for j in i.get("itineraries")[0]["segments"]:
+        departure += j["departure"]["iataCode"] + " " + " ".join(j["departure"]["at"].split("T")) + "\n"
+        arrival += j["arrival"]["iataCode"] + " " + " ".join(j["arrival"]["at"].split("T")) + "\n"
+      table.add_row([id,seats,duration,oneway,departure,arrival,price_inr,last_ticketing_date])
+      print(table.draw())
 
 def confirm_price(flight_obj):
 	valid_flight_obj = {
