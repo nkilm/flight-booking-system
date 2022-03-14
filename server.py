@@ -4,7 +4,7 @@ from simple_chalk import chalk
 import os,sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
 from airline.amadeus_python import check_flights,display
-from json import loads
+from json import loads,dumps
 
 PORT = 7070
 LISTENERS = 5
@@ -38,6 +38,7 @@ while True:
 
     res = check_flights(src,dest,date,adults)
     
-    display(res)
+
+    c_socket.send(bytes(str(dumps(res)),"utf-8"))
 
     c_socket.close()

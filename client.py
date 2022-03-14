@@ -5,7 +5,7 @@ from simple_chalk import chalk
 from inquirer.themes import GreenPassion
 from datetime import datetime
 import validation
-from json import dumps
+from json import dumps,loads
 import os,sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
@@ -37,3 +37,6 @@ booking_info["date"] = datetime.strptime(booking_info.get("date"), "%d/%m/%Y").s
 
 # send the booking info the socket of the server 
 c_socket.send(bytes(str(dumps(booking_info)),'utf-8'))
+
+flights = loads(c_socket.recv(int(5e+6)).decode())
+display(flights)
