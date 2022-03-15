@@ -27,7 +27,7 @@ def display(res):
         'Price(inc. of Taxes)',
         'Last Ticketing Date'
         ])
-      # table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
+      table.set_cols_align(["c", "c", "c", "c", "c","c","c"])
       curr = CurrencyConverter()
 
       for i in res:
@@ -74,7 +74,6 @@ def display_confirmation_price(conf_price_res):
     try:
       table = Texttable(max_width=0)
       curr = CurrencyConverter()
-      # print(conf_price_res)
       for i in conf_price_res.items():
           print(i)
           
