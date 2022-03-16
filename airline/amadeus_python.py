@@ -36,7 +36,7 @@ def display(res):
         last_ticketing_date = i.get("lastTicketingDate")
         price = i.get("price").get("grandTotal")
         price_inr = chalk.green(f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}")
-
+        
         departure = ""
         arrival = ""
 
@@ -100,20 +100,24 @@ def display_confirmation_price(conf_price_res):
 
       print(chalk.green.bold("Flight Information"))
       table = Texttable()
-
-      aircraft_code = conf_price_res.get("itineraries")[0]["segments"][0]["aircraft"]["code"]
-      carrier_code =  conf_price_res.get("itineraries")[0]["segments"][0]["operating"]["carrierCode"]
-      aircraft_number = conf_price_res.get("itineraries")[0]["segments"][0]["number"]
-      stops = conf_price_res.get("itineraries")[0]["segments"][0]["numberOfStops"]
-      
       table.add_row([
+        'Departure',
+        'Arrival',
         'Aircraft Code',
         'Carrier Code',
         'Aircraft Number',
         'Number of Stops'
       ])
 
-      table.add_row([aircraft_code,carrier_code,aircraft_number,stops])
+      for segment in conf_price_res.get("itineraries")[0]["segments"]:
+        aircraft_code = segment["aircraft"]["code"]
+        carrier_code =  segment["operating"]["carrierCode"]
+        aircraft_number = segment["number"]
+        stops = segment["numberOfStops"]
+        dep = segment["departure"]["iataCode"] + " " + " ".join(segment["departure"]["at"].split("T"))
+        arr = segment["arrival"]["iataCode"] + " " + " ".join(segment["arrival"]["at"].split("T"))
+        table.add_row([dep,arr,aircraft_code,carrier_code,aircraft_number,stops])
+        
       print(table.draw())
 
       print(chalk.green.bold("Pricing Information"))
@@ -143,7 +147,7 @@ def display_confirmation_price(conf_price_res):
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-      print(chalk.red.bold(f"{exc_type}, {fname}, {exc_tb.tb_lineno}"))
+      print(chalk.red.bold(f"{exc_type}, {fname}, {exc_tb.tb_lineno},{exc_obj}"))
 
 def confirm_price(flight_obj):
     try:
