@@ -21,7 +21,6 @@ def display(res):
         'ID',
         'Seats',
         'Duration',
-        'Oneway?',
         'Departure',
         'Arrival',
         'Price(inc. of Taxes)',
@@ -38,8 +37,6 @@ def display(res):
         price = i.get("price").get("grandTotal")
         price_inr = chalk.green(f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}")
 
-        oneway = "No" if i.get("oneWay") == 0 else "Yes"
-
         departure = ""
         arrival = ""
 
@@ -48,7 +45,7 @@ def display(res):
               " ".join(j["departure"]["at"].split("T")) + "\n"
           arrival += j["arrival"]["iataCode"] + " " + \
               " ".join(j["arrival"]["at"].split("T")) + "\n"
-        table.add_row([id, seats, duration, oneway, departure,
+        table.add_row([id, seats, duration, departure,
                       arrival, price_inr, last_ticketing_date])
 
       print(table.draw())
@@ -69,30 +66,24 @@ def check_flights(src, dest, date, adults=1):
     except ResponseError as error:
         return error
 
-
 def display_confirmation_price(conf_price_res):
+    conf_price_res = conf_price_res.get("flightOffers")[0]
     try:
       table = Texttable(max_width=0)
       curr = CurrencyConverter()
-      for i in conf_price_res.items():
-        print(i)
       table.add_row([
         'Bookable Seats',
-        'Duration',
-        'Oneway',
+        'Duration', 
         'Departure',
         'Arrival',
         'Price(inc. of Taxes)',
         'Last Ticketing Date'
       ])
-      table.set_cols_align(["c", "c", "c", "c", "c","c","c","c"])
       last_date = conf_price_res.get("lastTicketingDate")
       seats = conf_price_res.get("numberOfBookableSeats")
-      duration = conf_price_res.get("itineraries")[0]["duration"]
+      duration = [i["duration"] for i in conf_price_res.get("itineraries")[0]["segments"]]
       price = conf_price_res.get("price").get("grandTotal")
       price_inr = f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}"
-
-      oneway = "No" if conf_price_res.get("oneWay") == 0 else "Yes"
 
       departure = ""
       arrival = ""
@@ -102,8 +93,8 @@ def display_confirmation_price(conf_price_res):
             " ".join(j["departure"]["at"].split("T")) + "\n"
         arrival += j["arrival"]["iataCode"] + " " + \
             " ".join(j["arrival"]["at"].split("T")) + "\n"
-      table.add_row([seats, duration, oneway, departure,arrival, price_inr, last_date])
-      
+      table.add_row([seats, duration, departure,arrival, price_inr, last_date])
+
       print(chalk.green.bold("General Information"))
       print(table.draw())
 
@@ -112,8 +103,6 @@ def display_confirmation_price(conf_price_res):
 
       aircraft_code = conf_price_res.get("itineraries")[0]["segments"][0]["aircraft"]["code"]
       carrier_code =  conf_price_res.get("itineraries")[0]["segments"][0]["operating"]["carrierCode"]
-      blacklisted_in_eu = conf_price_res.get("itineraries")[0]["segments"][0]["blacklistedInEU"]
-      blacklisted_in_eu = "YES" if blacklisted_in_eu == 'False' else "NO"
       aircraft_number = conf_price_res.get("itineraries")[0]["segments"][0]["number"]
       stops = conf_price_res.get("itineraries")[0]["segments"][0]["numberOfStops"]
       
@@ -121,11 +110,10 @@ def display_confirmation_price(conf_price_res):
         'Aircraft Code',
         'Carrier Code',
         'Aircraft Number',
-        'Blacklisted in EU(European Union)',
         'Number of Stops'
       ])
 
-      table.add_row([aircraft_code,carrier_code,aircraft_number,blacklisted_in_eu,stops])
+      table.add_row([aircraft_code,carrier_code,aircraft_number,stops])
       print(table.draw())
 
       print(chalk.green.bold("Pricing Information"))
@@ -134,7 +122,7 @@ def display_confirmation_price(conf_price_res):
       supplier = "₹"+str(round(curr.convert(conf_price_res.get("price")["fees"][0]["amount"], 'EUR', 'INR'),2))
       ticketing = "₹"+str(round(curr.convert(conf_price_res.get("price")["fees"][1]["amount"], 'EUR', 'INR'),2))
       grand_total = round(curr.convert(conf_price_res.get("price")["grandTotal"], 'EUR', 'INR'),2)
-      refundable_taxes = grand_total - base
+      refundable_taxes = "₹"+str(round(grand_total - base,2))
       base = "₹"+str(base)
       grand_total = "₹"+str(grand_total)
      
@@ -155,7 +143,7 @@ def display_confirmation_price(conf_price_res):
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-      print(chalk.red.bold(exc_type, fname, exc_tb.tb_lineno))
+      print(chalk.red.bold(f"{exc_type}, {fname}, {exc_tb.tb_lineno}"))
 
 def confirm_price(flight_obj):
     try:

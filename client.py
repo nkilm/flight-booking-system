@@ -40,7 +40,7 @@ booking_info["date"] = datetime.strptime(booking_info.get("date"), "%d/%m/%Y").s
 #     "src" : "blr",
 #     "dest" : "goi",
 #     "date" : "2022-03-21",
-#     "adults" : 5
+#     "adults" : 1
 # }
 
 # send the booking info the socket of the server 
@@ -61,4 +61,5 @@ c_socket.send(bytes(str(flight_id["id"]),'utf-8'))
 
 desired_flight = loads(c_socket.recv(int(2e+6)).decode())
 
+run('clear',shell=True)
 display_confirmation_price(desired_flight)
