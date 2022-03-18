@@ -13,7 +13,6 @@ amadeus = Client(
     client_secret=environ.get("API_SECRET")
 )
 
-
 def display(res):
     try:
       table = Texttable(max_width=0)

@@ -2,7 +2,9 @@ from socket import socket
 from pyfiglet import figlet_format
 from simple_chalk import chalk 
 import os,sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
+
 from airline.amadeus_python import check_flights,confirm_price
 from json import loads,dumps
 
@@ -15,7 +17,6 @@ s_socket.bind(('localhost',PORT))
 print(f"Server started. Listening on PORT {PORT}")
 
 s_socket.listen(LISTENERS)
-    
 
 while True:
     try:

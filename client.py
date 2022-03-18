@@ -9,6 +9,7 @@ from json import dumps,loads
 import os,sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "airline"))
+
 from airline.amadeus_python import display,display_confirmation_price
 
 c_socket = socket()
@@ -63,3 +64,14 @@ desired_flight = loads(c_socket.recv(int(2e+6)).decode())
 
 run('clear',shell=True)
 display_confirmation_price(desired_flight)
+
+booking = [
+    inquirer.List("booking_res",message="Do you want to book the selected Flight?",choices=['YES','NO'])
+]
+
+booking_res = inquirer.prompt(booking,theme=GreenPassion())
+
+if(booking_res=="YES"):
+    print(chalk.green.bold("Flight Booked"))
+else:
+    print(chalk.red.bold("Flight Not Booked"))
