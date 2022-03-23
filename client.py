@@ -65,7 +65,7 @@ try:
 
     booking_res = inquirer.prompt(booking,theme=GreenPassion())
     run("clear",shell=True)
-    if(booking_res=="YES"):
+    if(booking_res['booking_res']=="YES"):
         print(chalk.green.bold("Flight Booked"))
     else:
         print(chalk.red.bold("Flight Not Booked"))
