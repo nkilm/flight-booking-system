@@ -80,6 +80,7 @@ def display_confirmation_price(conf_price_res):
       ])
       last_date = conf_price_res.get("lastTicketingDate")
       seats = conf_price_res.get("numberOfBookableSeats")
+      print(seats)
       duration = [i["duration"] for i in conf_price_res.get("itineraries")[0]["segments"]]
       price = conf_price_res.get("price").get("grandTotal")
       price_inr = f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}"
@@ -153,12 +154,3 @@ def confirm_price(flight_obj):
       return amadeus.shopping.flight_offers.pricing.post(flight_obj,include='credit-card-fees,other-services').data
     except ResponseError as error:
       print(chalk.red.bold(f"Error: {error}"))
-
-def book_flight(flight_obj):
-    # The flight ID comes from the Flight Create Orders (in test environment it's temporary)
-    # Retrieve the order based on it's ID
-    flight_booking = amadeus.booking.flight_orders.post(flight_obj).data
-    amadeus.booking.flight_order(flight_booking['id']).get()
-
-    # Delete the order based on it's ID
-    amadeus.booking.flight_order(flight_booking['id']).delete()
