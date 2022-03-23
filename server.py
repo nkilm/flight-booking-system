@@ -1,4 +1,4 @@
-from socket import socket
+import socket
 from pyfiglet import figlet_format
 from simple_chalk import chalk 
 import os,sys
@@ -11,12 +11,18 @@ from json import loads,dumps
 PORT = 7070
 LISTENERS = 5
 
-s_socket = socket()
+try: 
+    s_socket = socket.socket()
 
-s_socket.bind(('localhost',PORT))
-print(f"Server started. Listening on PORT {PORT}")
+    s_socket.bind(('localhost',PORT))
+    print(f"Server started. Listening on PORT {PORT}")
 
-s_socket.listen(LISTENERS)
+    s_socket.listen(LISTENERS)
+except socket.error as error:
+    print(chalk.red.bold(error))
+
+except socket.herror as error:
+    print(chalk.red.bold(error))
 
 while True:
     try:
@@ -52,5 +58,23 @@ while True:
         c_socket.send(bytes(str(dumps(price_conf_res)),"utf-8"))
 
         c_socket.close()
+    # System related error
+    except socket.error as error: # equivalent to OSError
+        print(chalk.red(error))
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(chalk.red.bold(exc_type, fname, exc_tb.tb_lineno))
+
+    # address related error 
+    except socket.herror as error:
+        print(chalk.red(error))
+
+    # catch timeout error
+    except socket.timeout as time_out_error:
+        print(chalk.red(time_out_error))
+
     except Exception as e:
         print(chalk.red.bold(e))
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(chalk.red.bold(exc_type, fname, exc_tb.tb_lineno))
