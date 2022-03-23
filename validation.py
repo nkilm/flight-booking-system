@@ -2,13 +2,16 @@ import inquirer
 import re 
 
 def location_code_validation(answers,current):
-    if not re.match(r"/\w{3}", current):
+    # length should be 3 and should be ascii
+    flag = len(current)==3 and current.isascii()
+    # If condition is not satisfied then
+    if (not flag):
         raise inquirer.errors.ValidationError("", reason="Only 3 Letter location code should be given! \nSee https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm for Location Code")
     return True
 
 def check_number(answers,current):
-    if not re.match(r"\d", current):
-        raise inquirer.errors.ValidationError("", reason="Invalid date format! Date format should be in DD/MM/YYYY")
+    if not current.isnumeric():
+        raise inquirer.errors.ValidationError("", reason="Enter Integer value")
     return True
 
 def date_validation(answers, current):

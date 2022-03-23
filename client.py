@@ -1,3 +1,4 @@
+from wsgiref import validate
 import inquirer
 import socket 
 from subprocess import run
@@ -27,10 +28,10 @@ try:
     print(quote_response)
 
     questions = [
-        inquirer.Text("src", message="Enter the Source"),
-        inquirer.Text("dest", message="Enter the Destination"),
+        inquirer.Text("src", message="Enter the Source",validate=validation.location_code_validation),
+        inquirer.Text("dest", message="Enter the Destination",validate=validation.location_code_validation),
         inquirer.Text("date", message="Enter the Journey Date",validate=validation.date_validation),
-        inquirer.Text("adults", message="How many Passengers?")
+        inquirer.Text("adults", message="How many Passengers?",validate=validation.check_number)
     ]
 
     booking_info = inquirer.prompt(questions, theme=GreenPassion())
