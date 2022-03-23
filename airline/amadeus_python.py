@@ -56,8 +56,8 @@ def display(res):
 def check_flights(src, dest, date, adults=1):
     try:
         response = amadeus.shopping.flight_offers_search.get(
-        originLocationCode=src.upper(),
-        destinationLocationCode=dest.upper(),
+        originLocationCode=src.replace(" ","").upper(),
+        destinationLocationCode=dest.replace(" ","").upper(),
         departureDate=date,
         adults=adults).data
         return response

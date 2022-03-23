@@ -1,4 +1,3 @@
-from wsgiref import validate
 import inquirer
 import socket 
 from subprocess import run
