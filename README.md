@@ -1,6 +1,6 @@
 
 <h1 align="center"> Flight Booking System </h1>
-<img src="./data/flight.png" alt="drawing" width="800" height="500"/>
+<img src="./data/flight.png" alt="drawing" width="800" height="600"/>
 
 ## Table of Contents
 - [**Usage**](#usage)
