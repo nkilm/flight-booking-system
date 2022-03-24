@@ -1,0 +1,220 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Flight Booking ",
+    "dateExported": "2022-03-24T11:33:57.329Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "containerId": "",
+            "sortNum": 10000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                }
+            ],
+            "colId": "dc61d74a-cfb6-4ccc-8058-60e1923d6ddb",
+            "name": "Flights Search",
+            "url": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=BLR&destinationLocationCode=GOI&departureDate=2022-03-21&adults=1",
+            "method": "GET",
+            "modified": "2022-03-18T08:56:36.711Z",
+            "created": "2022-03-06T05:20:31.989Z",
+            "_id": "e21673f4-343a-4b13-874f-aaff636c1ccf",
+            "params": [
+                {
+                    "name": "originLocationCode",
+                    "value": "BLR",
+                    "isPath": false
+                },
+                {
+                    "name": "destinationLocationCode",
+                    "value": "GOI",
+                    "isPath": false
+                },
+                {
+                    "name": "departureDate",
+                    "value": "2022-03-21",
+                    "isPath": false
+                },
+                {
+                    "name": "adults",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "max",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "oauth2",
+                "oauth2": {
+                    "accessToken": "4TcnqGAIVS4BrzrriFKN9UjSBkLQ",
+                    "grantType": "client_credentials",
+                    "callbackUrl": "https://www.thunderclient.com/oauth/callback",
+                    "authUrl": "",
+                    "tokenUrl": "https://test.api.amadeus.com/v1/security/oauth2/token",
+                    "clientId": "0GdJiOL7MtTKpu4HQcwht2v0jImR9wZA",
+                    "clientSecret": "P4pnvqby35y2cOah",
+                    "scope": "",
+                    "state": "",
+                    "username": "",
+                    "password": "",
+                    "clientAuth": "in-header"
+                }
+            },
+            "tests": []
+        },
+        {
+            "containerId": "",
+            "sortNum": 17500,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                }
+            ],
+            "colId": "dc61d74a-cfb6-4ccc-8058-60e1923d6ddb",
+            "name": "Booking",
+            "url": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=BLR&destinationLocationCode=GOI&departureDate=2022-03-21&adults=1",
+            "method": "GET",
+            "modified": "2022-03-18T08:31:42.517Z",
+            "created": "2022-03-18T08:31:42.517Z",
+            "_id": "77960a35-8490-48bd-bb75-6505a178bc63",
+            "params": [
+                {
+                    "name": "originLocationCode",
+                    "value": "BLR",
+                    "isPath": false
+                },
+                {
+                    "name": "destinationLocationCode",
+                    "value": "GOI",
+                    "isPath": false
+                },
+                {
+                    "name": "departureDate",
+                    "value": "2022-03-21",
+                    "isPath": false
+                },
+                {
+                    "name": "adults",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "max",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "oauth2",
+                "oauth2": {
+                    "accessToken": "UxqGOhVVdcJbTP0VAahmIWGsTiNe",
+                    "grantType": "client_credentials",
+                    "callbackUrl": "https://www.thunderclient.com/oauth/callback",
+                    "authUrl": "",
+                    "tokenUrl": "https://test.api.amadeus.com/v1/security/oauth2/token",
+                    "clientId": "0GdJiOL7MtTKpu4HQcwht2v0jImR9wZA",
+                    "clientSecret": "P4pnvqby35y2cOah",
+                    "scope": "",
+                    "state": "",
+                    "username": "",
+                    "password": "",
+                    "clientAuth": "in-header"
+                }
+            },
+            "tests": []
+        },
+        {
+            "containerId": "",
+            "sortNum": 25000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                }
+            ],
+            "colId": "dc61d74a-cfb6-4ccc-8058-60e1923d6ddb",
+            "name": "Price Confirmation",
+            "url": "https://test.api.amadeus.com/v1/shopping/flight-offers/pricing",
+            "method": "POST",
+            "modified": "2022-03-18T05:32:22.122Z",
+            "created": "2022-03-13T05:20:25.373Z",
+            "_id": "8003c910-03d8-42d1-8c66-ebb141b1d286",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"data\": {\n    \"type\": \"flight-offers-pricing\",\n    \"flightOffers\": [\n      {\n      \"type\": \"flight-offer\",\n      \"id\": \"1\",\n      \"source\": \"GDS\",\n      \"instantTicketingRequired\": false,\n      \"nonHomogeneous\": false,\n      \"oneWay\": false,\n      \"lastTicketingDate\": \"2022-03-21\",\n      \"numberOfBookableSeats\": 9,\n      \"itineraries\": [\n        {\n          \"duration\": \"PT1H30M\",\n          \"segments\": [\n            {\n              \"departure\": {\n                \"iataCode\": \"BLR\",\n                \"at\": \"2022-03-21T19:00:00\"\n              },\n              \"arrival\": {\n                \"iataCode\": \"GOI\",\n                \"at\": \"2022-03-21T20:30:00\"\n              },\n              \"carrierCode\": \"AI\",\n              \"number\": \"9547\",\n              \"aircraft\": {\n                \"code\": \"ATR\"\n              },\n              \"operating\": {\n                \"carrierCode\": \"9I\"\n              },\n              \"duration\": \"PT1H30M\",\n              \"id\": \"27\",\n              \"numberOfStops\": 0,\n              \"blacklistedInEU\": false\n            }\n          ]\n        }\n      ],\n      \"price\": {\n        \"currency\": \"EUR\",\n        \"total\": \"29.55\",\n        \"base\": \"20.00\",\n        \"fees\": [\n          {\n            \"amount\": \"0.00\",\n            \"type\": \"SUPPLIER\"\n          },\n          {\n            \"amount\": \"0.00\",\n            \"type\": \"TICKETING\"\n          }\n        ],\n        \"grandTotal\": \"29.55\"\n      },\n      \"pricingOptions\": {\n        \"fareType\": [\n          \"PUBLISHED\"\n        ],\n        \"includedCheckedBagsOnly\": true\n      },\n      \"validatingAirlineCodes\": [\n        \"AI\"\n      ],\n      \"travelerPricings\": [\n        {\n          \"travelerId\": \"1\",\n          \"fareOption\": \"STANDARD\",\n          \"travelerType\": \"ADULT\",\n          \"price\": {\n            \"currency\": \"EUR\",\n            \"total\": \"29.55\",\n            \"base\": \"20.00\"\n          },\n          \"fareDetailsBySegment\": [\n            {\n              \"segmentId\": \"27\",\n              \"cabin\": \"ECONOMY\",\n              \"fareBasis\": \"SIP9I\",\n              \"class\": \"S\",\n              \"includedCheckedBags\": {\n                \"weight\": 15,\n                \"weightUnit\": \"KG\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n    ]\n  }\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "oauth2",
+                "oauth2": {
+                    "accessToken": "g4TAwAH5YdGzlXS3soM0r0yGqljk",
+                    "grantType": "client_credentials",
+                    "callbackUrl": "https://www.thunderclient.com/oauth/callback",
+                    "authUrl": "",
+                    "tokenUrl": "https://test.api.amadeus.com/v1/security/oauth2/token",
+                    "clientId": "0GdJiOL7MtTKpu4HQcwht2v0jImR9wZA",
+                    "clientSecret": "P4pnvqby35y2cOah",
+                    "scope": "",
+                    "state": "",
+                    "username": "",
+                    "password": "",
+                    "clientAuth": "in-header"
+                }
+            },
+            "tests": []
+        },
+        {
+            "containerId": "",
+            "sortNum": 40000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                }
+            ],
+            "colId": "dc61d74a-cfb6-4ccc-8058-60e1923d6ddb",
+            "name": "TOKEN",
+            "url": "https://test.api.amadeus.com/v1/security/oauth2/token",
+            "method": "POST",
+            "modified": "2022-03-07T12:51:35.836Z",
+            "created": "2022-03-07T12:48:19.498Z",
+            "_id": "9c2ef412-72d9-4974-a33d-59f8e38ddd1c",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"grant_type\" : \"client_credentials\",\n    \"client_id\" : \"Zz3mApjW6yTT3zXxU5AWYRykFzjToOZr\",\n    \"client_secret\" : \"HAAA6J6tVkKYsJuq\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
