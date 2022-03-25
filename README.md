@@ -15,7 +15,7 @@
 ```bash
 git clone git@github.com:nkilm/flight-booking-system.git
 ```
-- Create a [Virutal Environment](#virtual-environment) in the project folder.
+- Create a [Virutal Environment](#virtual-environment-for-python) in the project folder.
 - Install all the Dependencies/Packages.
 ```bash
 pip install -r ./requirements.txt
