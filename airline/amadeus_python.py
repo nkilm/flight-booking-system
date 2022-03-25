@@ -8,10 +8,15 @@ import sys,os
 
 load_dotenv()
 
-amadeus = Client(
-    client_id=environ.get("API_KEY"),
-    client_secret=environ.get("API_SECRET")
-)
+try:
+  amadeus = Client(
+      client_id=environ.get("API_KEY"),
+      client_secret=environ.get("API_SECRET")
+  )
+except Exception as e:
+  print(chalk.red.bold(e) + "\n" + chalk.yellow.bold("Hint: Add API Key and API Secret to class Client"))
+  exit(1)
+
 
 def display(res):
     try:
