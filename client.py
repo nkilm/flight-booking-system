@@ -41,7 +41,12 @@ try:
     c_socket.send(bytes(str(dumps(booking_info)),'utf-8'))
 
     flights = loads(c_socket.recv(int(5e+6)).decode())
-    display(flights)
+
+    flag = display(flights) # flag True means flights are available
+
+    if(not flag):
+        print(chalk.red.bold(f"Flight Not Available from {booking_info['src'].upper()} to {booking_info['dest'].upper()}"))
+        exit(1) # don't execute the below portion if no flight
 
     print("\n")
     id = [

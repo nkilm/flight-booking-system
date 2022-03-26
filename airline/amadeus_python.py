@@ -19,6 +19,8 @@ except Exception as e:
 
 
 def display(res):
+    if(len(res)==0):
+      return False 
     try:
       table = Texttable(max_width=0)
       table.add_row([
@@ -51,8 +53,8 @@ def display(res):
               " ".join(j["arrival"]["at"].split("T")) + "\n"
         table.add_row([id, seats, duration, departure,
                       arrival, price_inr, last_ticketing_date])
-
       print(table.draw())
+      return True
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -85,7 +87,7 @@ def display_confirmation_price(conf_price_res):
       ])
       last_date = conf_price_res.get("lastTicketingDate")
       seats = conf_price_res.get("numberOfBookableSeats")
-      print(seats)
+      
       duration = [i["duration"] for i in conf_price_res.get("itineraries")[0]["segments"]]
       price = conf_price_res.get("price").get("grandTotal")
       price_inr = f"₹{round(curr.convert(price, 'EUR', 'INR'),2)}"
