@@ -1,10 +1,10 @@
 
 <h1 align="center"> Flight Booking System </h1>
-<img src="./data/flight.png" alt="drawing" width="800" height="600"/>
+<img src="./data/flight.png" alt="drawing" width="800" height="650"/>
 
 ## Table of Contents
 - [**Usage**](#usage)
-- [**Testing Travel API**](#travel-api)
+- [**Testing Travel API**](#testing-travel-api)
 - [**Miscellanous**](#miscellanous)
 ***
 ## Usage
@@ -43,7 +43,7 @@ pip install -r ./requirements.txt
   
 `Note : Server should be running first to avoid getting connection error`
 ***
-
+[Back to Top ⬆](#table-of-contents)
 ## Testing Travel API
 `Amadeus Travel API used in this project`
 - I have used [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) for API testing. You can use any API testing clients.
@@ -51,6 +51,8 @@ pip install -r ./requirements.txt
 [*How to Import collection in Postman/Thunder Client?*](https://github.com/rangav/thunder-client-support#:~:text=How%20to%20Import,or%20Open%20API.)
 - Fill in `Client ID` and `Client Secret` with `API Key` and `API Secret` respectively.
 - Generate token if token expires.
+
+[Back to Top ⬆](#table-of-contents)
 ## Miscellanous
 ### Virtual Environment for Python
 
@@ -67,3 +69,5 @@ Activate the virtual environment
 .\env\Scripts\activate.ps1
 ```
 `Note : Set the Interpreter to ('env':venv) in VS Code`
+
+[Back to Top ⬆](#table-of-contents)
