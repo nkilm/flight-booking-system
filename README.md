@@ -48,7 +48,8 @@ pip install -r ./requirements.txt
 `Amadeus Travel API used in this project`
 - I have used [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) for API testing. You can use any API testing clients.
 - To test the API, import the collection (.json file) from `./testing-api` and add it to your collection.
-[*How to Import collection in Postman/Thunder Client?*](https://github.com/rangav/thunder-client-support#:~:text=How%20to%20Import,or%20Open%20API.)
+
+[*How to Import collection in Postman/Thunder Client?*](https://github.com/rangav/thunder-client-support#:~:text=How%20to%20Import%20Collection)
 - Fill in `Client ID` and `Client Secret` with `API Key` and `API Secret` respectively.
 - Generate token if token expires.
 
