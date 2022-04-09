@@ -14,7 +14,7 @@ LISTENERS = 5
 try: 
     s_socket = socket.socket()
 
-    s_socket.bind(('localhost',PORT))
+    s_socket.bind(('localhost',PORT)) # change 'localhost' to IP Addr to connect different laptops
     print(f"Server started. Listening on PORT {PORT}")
 
     s_socket.listen(LISTENERS)
