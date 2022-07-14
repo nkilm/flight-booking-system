@@ -1,12 +1,22 @@
 
 <h1 align="center"> Flight Booking System </h1>
-<img src="./data/flight.png" alt="drawing" width="800" height="650"/>
 
 ## Table of Contents
+- [**Visuals**](#visuals)
 - [**Usage**](#usage)
 - [**Testing Travel API**](#testing-travel-api)
 - [**Miscellanous**](#miscellanous)
 ***
+
+## Visuals
+![client interface 1](screenshots/client__1.png)
+---
+![client interface 2](screenshots/client__2.png)
+---
+![client interface 3](screenshots/client__3.png)
+---
+![server side](screenshots/server.png)
+
 ## Usage
 
 ## Step 1 - Create a local repository
@@ -15,7 +25,7 @@
 ```bash
 git clone git@github.com:nkilm/flight-booking-system.git
 ```
-- Create a [Virutal Environment](#virtual-environment-for-python) in the project folder.
+- Create a **Virutal Environment** in the project folder.
 - Install all the Dependencies/Packages.
 ```bash
 pip install -r ./requirements.txt
@@ -52,23 +62,5 @@ pip install -r ./requirements.txt
 [*How to Import collection in Postman/Thunder Client?*](https://github.com/rangav/thunder-client-support#:~:text=How%20to%20Import%20Collection)
 - Fill in `Client ID` and `Client Secret` with `API Key` and `API Secret` respectively.
 - Generate token if token expires.
-
-[Back to Top ⬆](#table-of-contents)
-## Miscellanous
-### Virtual Environment for Python
-
-```bash 
-pip install virtualenv
-```
-Create a virtual environment 
-```bash 
-virtualenv env 
-```
-
-Activate the virtual environment 
-```bash
-.\env\Scripts\activate.ps1
-```
-`Note : Set the Interpreter to ('env':venv) in VS Code`
 
 [Back to Top ⬆](#table-of-contents)
